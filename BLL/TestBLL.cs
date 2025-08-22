@@ -17,13 +17,11 @@ namespace BLL
         {
             Sys = new ConnectionString();
 
-            // ✅ use public method instead of Sys.ConnectionString()
             string connectionString = Sys.GetConnectionString();
 
             dao = new TestDAO(connectionString);
         }
 
-        // ✅ Flexible constructor (if you want to pass your own connection string)
         public TestBLL(string connectionString)
         {
             dao = new TestDAO(connectionString);

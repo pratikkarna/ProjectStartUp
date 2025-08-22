@@ -9,7 +9,6 @@ namespace DAL
     {
         private readonly string connectionString;
 
-        // ✅ DAO accepts connection string
         public TestDAO(string connectionString)
         {
             this.connectionString = connectionString;
@@ -30,7 +29,7 @@ namespace DAL
                         {
                             ID = reader.GetInt32(0),
                             Name = reader.GetString(1),
-                            IsActive = reader.GetBoolean(2) // ✅ Corrected index
+                            IsActive = reader.GetBoolean(2) 
                         });
                     }
                 }
