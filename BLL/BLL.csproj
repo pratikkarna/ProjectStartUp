@@ -198,6 +198,10 @@
       <Project>{34484951-5f47-4c3a-b2ac-dfaa55d12800}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DBConnection\DBConnection.csproj">
+      <Project>{4935a36f-0ea3-4360-9661-e9659d818df9}</Project>
+      <Name>DBConnection</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DTO\DTO.csproj">
       <Project>{e3241705-cfff-4afd-87d6-e44403b7f9bd}</Project>
       <Name>DTO</Name>

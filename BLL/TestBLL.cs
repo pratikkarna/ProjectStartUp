@@ -1,99 +1,42 @@
-﻿//using System.Collections.Generic;
-//using DTO;
-//using DAL;
-
-//namespace BLL
-//{
-//    public class TestBLL
-//    {
-//        private TestDAO dao = new TestDAO();
-
-//        public IEnumerable<TestDTO> GetAllTests()
-//        {
-//            return dao.GetAll();
-//        }
-
-//        public TestDTO GetTestById(int id)
-//        {
-//            return dao.GetById(id);
-//        }
-
-//        public void AddTest(TestDTO test)
-//        {
-//            dao.Add(test);
-//        }
-
-//        public void UpdateTest(TestDTO test)
-//        {
-//            dao.Update(test);
-//        }
-
-//        public void DeleteTest(int id)
-//        {
-//            dao.Delete(id);
-//        }
-//    }
-//}
-
-
-
-using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System.Collections.Generic;
 using DTO;
 using DAL;
-//using System.IO;
 using Microsoft.Extensions.Configuration;
-using System.IO;
 
+using System.IO;
+using ProjectStartUp.Connection;
 
 namespace BLL
 {
     public class TestBLL
     {
         private readonly TestDAO dao;
+        private readonly ConnectionString Sys;
 
-        // ✅ Parameterless constructor (for your controller)
         public TestBLL()
         {
-            // Hardcoded connection string (works, but not best practice).
-            string connectionString =
-                  "Data Source=LAPTOP-3BNGUHJN\\SQLEXPRESS;Initial Catalog=PS00001;Integrated Security=True;Encrypt=False";
+            Sys = new ConnectionString();
+
+            // ✅ use public method instead of Sys.ConnectionString()
+            string connectionString = Sys.GetConnectionString();
 
             dao = new TestDAO(connectionString);
         }
 
-
-
-
-        // ✅ If you want flexibility, keep another constructor too
+        // ✅ Flexible constructor (if you want to pass your own connection string)
         public TestBLL(string connectionString)
         {
             dao = new TestDAO(connectionString);
         }
 
-        public IEnumerable<TestDTO> GetAllTests()
-        {
-            return dao.GetAll();
-        }
+        public IEnumerable<TestDTO> GetAllTests() => dao.GetAll();
 
-        public TestDTO GetTestById(int id)
-        {
-            return dao.GetById(id);
-        }
+        public TestDTO GetTestById(int id) => dao.GetById(id);
 
-        public void AddTest(TestDTO test)
-        {
-            dao.Add(test);
-        }
+        public void AddTest(TestDTO test) => dao.Add(test);
 
-        public void UpdateTest(TestDTO test)
-        {
-            dao.Update(test);
-        }
+        public void UpdateTest(TestDTO test) => dao.Update(test);
 
-        public void DeleteTest(int id)
-        {
-            dao.Delete(id);
-        }
+        public void DeleteTest(int id) => dao.Delete(id);
     }
 }

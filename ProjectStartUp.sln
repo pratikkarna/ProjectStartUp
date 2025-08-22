@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35913.81 d17.13
+VisualStudioVersion = 17.13.35913.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectStartUp", "ProjectStartUp\ProjectStartUp.csproj", "{699491D7-C746-4838-98BB-CE000D37590A}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{930AF4B6-65A4-42E4-A01A-F4EE6A243348}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{E3241705-CFFF-4AFD-87D6-E44403B7F9BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBConnection", "DBConnection\DBConnection.csproj", "{4935A36F-0EA3-4360-9661-E9659D818DF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E3241705-CFFF-4AFD-87D6-E44403B7F9BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3241705-CFFF-4AFD-87D6-E44403B7F9BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3241705-CFFF-4AFD-87D6-E44403B7F9BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4935A36F-0EA3-4360-9661-E9659D818DF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4935A36F-0EA3-4360-9661-E9659D818DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4935A36F-0EA3-4360-9661-E9659D818DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4935A36F-0EA3-4360-9661-E9659D818DF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
