@@ -21,22 +21,22 @@ namespace BLL
 
             string connectionString = Sys.GetConnectionString();
 
-            dao = new AccountSubGroupDAO(connectionString);
+           // dao = new AccountSubGroupDAO(connectionString);
         }
 
-        public AccountSubGroupBLL(string connectionString)
-        {
-            dao = new AccountSubGroupDAO(connectionString);
-        }
+        //public AccountSubGroupBLL(string connectionString)
+        //{
+        //    dao = new AccountSubGroupDAO(connectionString);
+        //}
 
-        public IEnumerable<AccountSubGroupDTO> GetAllTests() => dao.GetAll();
+        //public IEnumerable<AccountSubGroupDTO> GetAllTests() => dao.GetAll();
 
-        public AccountSubGroupDTO GetTestById(int id) => dao.GetById(id);
+        //public AccountSubGroupDTO GetTestById(int id) => dao.GetById(id);
 
-        public void AddTest(AccountSubGroupDTO test) => dao.Add(test);
+        //public void AddTest(AccountSubGroupDTO test) => dao.Add(test);
 
-        public void UpdateTest(AccountSubGroupDTO test) => dao.Update(test);
+        //public void UpdateTest(AccountSubGroupDTO test) => dao.Update(test);
 
-        public void DeleteTest(int id) => dao.Delete(id);
+        //public void DeleteTest(int id) => dao.Delete(id);
     }
 }
