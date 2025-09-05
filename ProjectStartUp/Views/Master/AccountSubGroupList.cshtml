@@ -1,1 +1,62 @@
-﻿<h2> Account Sub Group List</h2>
+﻿@model IEnumerable<DTO.AccountSubGroupDTO>
+
+@{
+    ViewBag.Title = "Test List";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+        <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+        </div>
+}
+
+<a asp-action="AccountSubGroup" class="btn btn-success mb-3">Add New</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+             <th>SGrpCode</th>
+            <th>SGrpDesc</th>
+            <th>SGrpShortName</th>
+            <th>Source Module</th>
+            <th>Action Date</th>
+            <th>Action Time</th>
+            <th>Action Miti</th>
+            <th>Is Active</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                    <tr>
+                         <tr>
+                            <td>@item.SGrpCode</td>
+                            <td>@item.SGrpDesc</td>
+                            <td>@item.SGrpShortName</td>
+                            <td>@item.Source_Module</td>
+                            <td>@item.Action_Date.ToString("yyyy-MM-dd")</td>
+                            <td>@(item.Action_Time != DateTime.MinValue ? item.Action_Time.ToString("HH:mm:ss") : "-")</td>
+                            <td>@(item.Action_Miti != DateTime.MinValue ? item.Action_Miti.ToString("yyyy-MM-dd") : "-")</td>
+                            <td>@(item.IsActive ? "Yes" : "No")</td>
+                        </tr>
+                        <td>
+                            <a asp-action="Test" asp-route-id="@item.SGrpCode" class="btn btn-primary btn-sm">Edit</a>
+                                    <a asp-action="DeleteTest" asp-route-id="@item.SGrpCode" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Are you sure you want to delete this test?');">Delete</a>
+                        </td>
+                    </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No tests found.</td>
+            </tr>
+        }
+    </tbody>
+</table>

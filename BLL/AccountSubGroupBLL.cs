@@ -1,18 +1,17 @@
-﻿using DAL;
+﻿using System.Collections.Generic;
 using DTO;
+using DAL;
+using Microsoft.Extensions.Configuration;
+
+using System.IO;
 using ProjectStartUp.Connection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL
 {
     public class AccountSubGroupBLL
     {
 
-        private readonly TestDAO dao;
+        private readonly AccountSubGroupDAO dao;
         private readonly ConnectionString Sys;
 
         public AccountSubGroupBLL()
@@ -21,15 +20,15 @@ namespace BLL
 
             string connectionString = Sys.GetConnectionString();
 
-           // dao = new AccountSubGroupDAO(connectionString);
+            dao = new AccountSubGroupDAO(connectionString);
         }
 
-        //public AccountSubGroupBLL(string connectionString)
-        //{
-        //    dao = new AccountSubGroupDAO(connectionString);
-        //}
+        public AccountSubGroupBLL(string connectionString)
+        {
+            dao = new AccountSubGroupDAO(connectionString);
+        }
 
-        //public IEnumerable<AccountSubGroupDTO> GetAllTests() => dao.GetAll();
+        public IEnumerable<AccountSubGroupDTO> GetAllAccountSbuGroup() => dao.GetAll();
 
         //public AccountSubGroupDTO GetTestById(int id) => dao.GetById(id);
 

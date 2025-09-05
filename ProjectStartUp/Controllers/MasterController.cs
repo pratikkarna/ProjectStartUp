@@ -25,45 +25,46 @@ namespace ProjectStartUp.Controllers
         }
         #endregion
         #region AccountSubGroup
-        //public ActionResult AccountSubGroupList()
-        //{
-        //    try
-        //    {
-        //        var tests = _accountSubGroupBLL.GetAll_AccountSbuGroup();
-        //        return View(tests);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        TempData["ErrorMessage"] = "An error occurred while fetching the test list.";
-        //        return View(new List<TestDTO>());
-        //    }
-        //}
+        public ActionResult AccountSubGroupList()
+        {
+            try
+            {
+                 var tests = _accountSubGroupBLL.GetAllAccountSbuGroup();
+                 return View(tests);
+           
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                TempData["ErrorMessage"] = "An error occurred while fetching the test list.";
+                return View(new List<TestDTO>());
+            }
+        }
 
-        //public ActionResult Test(int id = 0)
-        //{
-        //    try
-        //    {
-        //        TestDTO model;
-        //        if (id != 0)
-        //        {
-        //            model = _testBLL.GetTestById(id);
-        //            if (model == null)
-        //                model = new TestDTO();
-        //        }
-        //        else
-        //        {
-        //            model = new TestDTO();
-        //        }
-        //        return View(model);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        TempData["ErrorMessage"] = "An error occurred while fetching the test details.";
-        //        return RedirectToAction("TestList", "Test");
-        //    }
-        //}
+        public ActionResult AccountSubGroup(int id = 0)
+        {
+            try
+            {
+                AccountSubGroupDTO model;
+                if (id != 0)
+                {
+                    //model = _accountSubGroupBLL.GetTestById(id);
+                    //if (model == null)
+                    //    model = new AccountSubGroupDTO();
+                }
+                else
+                {
+                    model = new AccountSubGroupDTO();
+                }
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                TempData["ErrorMessage"] = "An error occurred while fetching the test details.";
+                return RedirectToAction("TestList", "Test");
+            }
+        }
 
         //[HttpPost]
         //public ActionResult Test(TestDTO model)
