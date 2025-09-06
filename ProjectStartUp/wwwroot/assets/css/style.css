@@ -15979,7 +15979,7 @@ pre[class*=language-] > code {
   background: var(--pc-sidebar-background);
   width: 260px;
   position: fixed;
-  top: 0;
+  top: 60px;
   bottom: 0;
   z-index: 1026;
   overflow: hidden;
@@ -16434,10 +16434,10 @@ pre[class*=language-] > code {
   color: var(--pc-header-color);
   min-height: 60px;
   box-shadow: var(--pc-header-shadow);
-  position: fixed;
-  left: 260px;
+  /*position: fixed;*/
+  left: 0px;
   right: 0;
-  z-index: 1025;
+  /*z-index: 1025;*/
   display: flex;
 }
 .pc-header ul {
