@@ -13,6 +13,7 @@ namespace DTO
         public DateTime Action_Time { get; set; }
         public DateTime Action_Miti { get; set; }
         public bool IsActive { get; set; }
+        public bool Action { get; set; }
 
     }
 }

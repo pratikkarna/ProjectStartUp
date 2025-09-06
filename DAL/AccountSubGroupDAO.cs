@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using DTO;
+using ProjectStartUp.Connection;
 
 namespace DAL
 {
     public class AccountSubGroupDAO
     {
-        private readonly string connectionString;
+        private readonly string _connectionString;
 
-        public AccountSubGroupDAO(string connectionString)
+        public AccountSubGroupDAO(ConnectionString sys)
         {
-            this.connectionString = connectionString;
+            _connectionString = sys.GetConnectionString();
         }
 
         public IEnumerable<AccountSubGroupDTO> GetAll()
         {
             var tests = new List<AccountSubGroupDTO>();
-            using (var conn = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection(_connectionString))
             using (var cmd = new SqlCommand(@"SELECT SGrpCode,SGrpDesc,SGrpShortName,Source_Module,
                                             Action_Date,Action_Time,Action_Miti,IsActive FROM Account_Sub_Group", conn))
             {
@@ -45,18 +46,29 @@ namespace DAL
 
 
 
-        public void Save(TestDTO test)
+        public void Save(AccountSubGroupDTO model)
         {
-            using (var conn = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection(_connectionString))
             using (var cmd = new SqlCommand(
-                "INSERT INTO Test (Name, IsActive) VALUES (@Name, @IsActive)", conn))
+                @"INSERT INTO Test 
+      (SGrpCode, SGrpDesc, SGrpShortName, Source_Module, Action_Date, Action_Time, Action_Miti, Action, IsActive) 
+      VALUES 
+      (@SGrpCode, @SGrpDesc, @SGrpShortName, @Source_Module, @Action_Date, @Action_Time, @Action_Miti, @Action, @IsActive)", conn))
             {
-                cmd.Parameters.AddWithValue("@Name", test.Name);
-                //  cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@IsActive", test.IsActive);
+                cmd.Parameters.AddWithValue("@SGrpCode", model.SGrpCode);
+                cmd.Parameters.AddWithValue("@SGrpDesc", model.SGrpDesc);
+                cmd.Parameters.AddWithValue("@SGrpShortName", model.SGrpShortName);
+                cmd.Parameters.AddWithValue("@Source_Module", model.Source_Module);
+                cmd.Parameters.AddWithValue("@Action_Date", model.Action_Date);
+                cmd.Parameters.AddWithValue("@Action_Time", model.Action_Time);
+                cmd.Parameters.AddWithValue("@Action_Miti", model.Action_Miti);
+                cmd.Parameters.AddWithValue("@Action", model.Action);
+                cmd.Parameters.AddWithValue("@IsActive", model.IsActive);
+
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
+
         }
 
     }

@@ -9,120 +9,104 @@ namespace ProjectStartUp.Controllers
 
         private readonly AccountSubGroupBLL _accountSubGroupBLL;
 
-        public MasterController()
+        // BLL injected via constructor
+        public MasterController(AccountSubGroupBLL accountSubGroupBLL)
         {
-            _accountSubGroupBLL = new AccountSubGroupBLL();
+            _accountSubGroupBLL = accountSubGroupBLL;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-        #region Account Group
-        public IActionResult AccountGroupList()
-        {
-            return View();
-        }
-        #endregion
+
         #region AccountSubGroup
-        public ActionResult AccountSubGroupList()
+        public IActionResult AccountSubGroupList()
         {
             try
             {
-                 var tests = _accountSubGroupBLL.GetAllAccountSbuGroup();
-                 return View(tests);
-           
+                var list = _accountSubGroupBLL.GetAllAccountSbuGroup();
+                return View(list);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                TempData["ErrorMessage"] = "An error occurred while fetching the test list.";
-                return View(new List<TestDTO>());
+                TempData["ErrorMessage"] = "An error occurred while fetching the list.";
+                return View(new List<AccountSubGroupDTO>());
             }
         }
 
-        public ActionResult AccountSubGroup(int id = 0)
-        {
-            try
-            {
-                AccountSubGroupDTO model;
-                if (id != 0)
-                {
-                    //model = _accountSubGroupBLL.GetTestById(id);
-                    //if (model == null)
-                    //    model = new AccountSubGroupDTO();
-                }
-                else
-                {
-                    model = new AccountSubGroupDTO();
-                }
-                return View();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                TempData["ErrorMessage"] = "An error occurred while fetching the test details.";
-                return RedirectToAction("TestList", "Test");
-            }
-        }
-
-        //[HttpPost]
-        //public ActionResult Test(TestDTO model)
+        //public IActionResult AccountSubGroup(int id = 0)
         //{
+        //    AccountSubGroupDTO model;
         //    try
         //    {
-        //        if (model.ID != 0)
+        //        if (id != 0)
         //        {
-        //            _testBLL.UpdateTest(model);
-        //            return RedirectToAction("TestList", "Test");
+        //            // If you implement GetById in BLL/DAO, uncomment:
+        //            // model = _accountSubGroupBLL.GetById(id) ?? new AccountSubGroupDTO();
         //        }
         //        else
         //        {
-        //            _testBLL.AddTest(model);
-        //            ModelState.Clear();
-        //            return RedirectToAction("Test", "Test", new { id = 0 });
+        //            model = new AccountSubGroupDTO();
         //        }
+
         //        return View(model);
         //    }
         //    catch (Exception ex)
         //    {
         //        Console.WriteLine(ex.Message);
-        //        TempData["ErrorMessage"] = "An error occurred while saving the test.";
-        //        return View(model);
+        //        TempData["ErrorMessage"] = "An error occurred while fetching the details.";
+        //        return RedirectToAction("AccountSubGroupList");
         //    }
         //}
 
-        //public ActionResult DeleteTest(int id)
-        //{
-        //    try
-        //    {
-        //        _testBLL.DeleteTest(id);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        TempData["ErrorMessage"] = "An error occurred while deleting the test.";
-        //    }
-        //    return RedirectToAction("TestList", "Test");
-        //}
-        #endregion
-        #region Agent
-        public IActionResult AgentList()
+        [HttpPost]
+        public IActionResult AccountSubGroup(AccountSubGroupDTO model)
         {
-            return View();
+            try
+            {
+                if (model.SGrpCode != 0)
+                {
+                    // If you implement Update in BLL/DAO
+                    // _accountSubGroupBLL.Update(model);
+                }
+                else
+                {
+                    _accountSubGroupBLL.AddAccountSubGroup(model);
+                }
+
+                ModelState.Clear();
+                return RedirectToAction("AccountSubGroupList");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                TempData["ErrorMessage"] = "An error occurred while saving the data.";
+                return View(model);
+            }
         }
-        #endregion
-        #region Area
-        public IActionResult AreaList()
-        {
-            return View();
-        }
-        #endregion
-        #region Ledger
-        public IActionResult LedgerList()
-        {
-            return View();
-        }
-        #endregion
-    }
+  
+
+   
+#endregion
+#region Agent
+public IActionResult AgentList()
+{
+    return View();
+}
+#endregion
+#region Area
+public IActionResult AreaList()
+{
+    return View();
+}
+#endregion
+#region Ledger
+public IActionResult LedgerList()
+{
+    return View();
+}
+#endregion
+}
 }
