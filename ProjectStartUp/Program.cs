@@ -8,9 +8,14 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<ProjectStartUp.Connection.ConnectionString>();
 // ===== Register your custom services for DI =====
+
+
+
 // DAO
+builder.Services.AddTransient<DAL.TestDAO>();
 builder.Services.AddTransient<AccountSubGroupDAO>();
 // BLL
+builder.Services.AddTransient<BLL.TestBLL>();
 builder.Services.AddTransient<AccountSubGroupBLL>();
 
 var app = builder.Build();

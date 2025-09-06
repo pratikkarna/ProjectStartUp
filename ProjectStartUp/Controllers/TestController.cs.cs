@@ -10,9 +10,10 @@ namespace ProjectStartUp.Controllers
     {
         private readonly TestBLL _testBLL;
 
-        public TestController()
+        // Inject TestBLL via constructor
+        public TestController(TestBLL testBLL)
         {
-            _testBLL = new TestBLL();
+            _testBLL = testBLL;
         }
 
         #region Test
@@ -39,9 +40,7 @@ namespace ProjectStartUp.Controllers
                 TestDTO model;
                 if (id != 0)
                 {
-                    model = _testBLL.GetTestById(id);
-                    if (model == null)
-                        model = new TestDTO();
+                    model = _testBLL.GetTestById(id) ?? new TestDTO();
                 }
                 else
                 {
@@ -53,7 +52,7 @@ namespace ProjectStartUp.Controllers
             {
                 Console.WriteLine(ex.Message);
                 TempData["ErrorMessage"] = "An error occurred while fetching the test details.";
-                return RedirectToAction("TestList", "Test");
+                return RedirectToAction("TestList");
             }
         }
 
@@ -65,15 +64,14 @@ namespace ProjectStartUp.Controllers
                 if (model.ID != 0)
                 {
                     _testBLL.UpdateTest(model);
-                    return RedirectToAction("TestList", "Test");
                 }
                 else
                 {
                     _testBLL.AddTest(model);
                     ModelState.Clear();
-                    return RedirectToAction("Test", "Test", new { id = 0 });
+                    return RedirectToAction("Test", new { id = 0 });
                 }
-                return View(model);
+                return RedirectToAction("TestList");
             }
             catch (Exception ex)
             {
@@ -94,7 +92,7 @@ namespace ProjectStartUp.Controllers
                 Console.WriteLine(ex.Message);
                 TempData["ErrorMessage"] = "An error occurred while deleting the test.";
             }
-            return RedirectToAction("TestList", "Test");
+            return RedirectToAction("TestList");
         }
 
         #endregion
