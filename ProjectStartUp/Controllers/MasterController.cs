@@ -36,30 +36,29 @@ namespace ProjectStartUp.Controllers
             }
         }
 
-        //public IActionResult AccountSubGroup(int id = 0)
-        //{
-        //    AccountSubGroupDTO model;
-        //    try
-        //    {
-        //        if (id != 0)
-        //        {
-        //            // If you implement GetById in BLL/DAO, uncomment:
-        //            // model = _accountSubGroupBLL.GetById(id) ?? new AccountSubGroupDTO();
-        //        }
-        //        else
-        //        {
-        //            model = new AccountSubGroupDTO();
-        //        }
+        public IActionResult AccountSubGroup(int id = 0)
+        {
+            AccountSubGroupDTO model;
+            try
+            {
+                if (id != 0)
+                {
+                    model = _accountSubGroupBLL.GetAccountSubGroupById(id) ?? new AccountSubGroupDTO();
+                }
+                else
+                {
+                    model = new AccountSubGroupDTO();
+                }
 
-        //        return View(model);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        TempData["ErrorMessage"] = "An error occurred while fetching the details.";
-        //        return RedirectToAction("AccountSubGroupList");
-        //    }
-        //}
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                TempData["ErrorMessage"] = "An error occurred while fetching the details.";
+                return RedirectToAction("AccountSubGroupList");
+            }
+        }
 
         [HttpPost]
         public IActionResult AccountSubGroup(AccountSubGroupDTO model)

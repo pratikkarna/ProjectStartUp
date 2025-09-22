@@ -15,6 +15,8 @@ namespace BLL
 
         public IEnumerable<AccountSubGroupDTO> GetAllAccountSbuGroup() => _dao.GetAll();
         public void AddAccountSubGroup(AccountSubGroupDTO model) => _dao.Save(model);
+        public AccountSubGroupDTO GetAccountSubGroupById(int id) => _dao.GetById(id);
+        public void DeleteAccountSubGroup(int id) => _dao.Delete(id);
     }
 }
 

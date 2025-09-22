@@ -189,10 +189,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountSubGroupDAO.cs" />
+    <Compile Include="ProjectDAL\AccountSubGroupDAO.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestDAO.cs" />
+    <Compile Include="ProjectDAL\TestDAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DBConnection\DBConnection.csproj">

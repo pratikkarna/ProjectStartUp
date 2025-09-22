@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Add New Sub Group";
+    Layout = null; // Use Main Layout
 }
 
 <h2>@ViewBag.Title</h2>
@@ -11,47 +12,47 @@
         <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
 }
 
-<form asp-action="Create" method="post" class="form-horizontal">
-    <div class="form-group row mb-2">
-        <label asp-for="SGrpCode" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-4">
-            <input asp-for="SGrpCode" class="form-control form-control-sm" />
-            <span asp-validation-for="SGrpCode" class="text-danger"></span>
-        </div>
-    </div>
+<form asp-action="AccountSubGroup" method="post" class="form-horizontal">
+    <!-- Hidden field for SGrpCode -->
+    <input asp-for="SGrpCode" type="hidden" />
 
+    <!-- Sub Group -->
     <div class="form-group row mb-2">
-        <label asp-for="SGrpDesc" class="col-sm-2 col-form-label"></label>
+        <label asp-for="SGrpDesc" class="col-sm-2 col-form-label">Sub Group</label>
         <div class="col-sm-6">
             <input asp-for="SGrpDesc" class="form-control form-control-sm" />
             <span asp-validation-for="SGrpDesc" class="text-danger"></span>
         </div>
     </div>
 
+    <!-- Short Name -->
     <div class="form-group row mb-2">
-        <label asp-for="SGrpShortName" class="col-sm-2 col-form-label"></label>
+        <label asp-for="SGrpShortName" class="col-sm-2 col-form-label">Short Name</label>
         <div class="col-sm-4">
             <input asp-for="SGrpShortName" class="form-control form-control-sm" />
             <span asp-validation-for="SGrpShortName" class="text-danger"></span>
         </div>
     </div>
 
+    <!-- Module -->
     <div class="form-group row mb-2">
-        <label asp-for="Source_Module" class="col-sm-2 col-form-label"></label>
+        <label asp-for="Source_Module" class="col-sm-2 col-form-label">Module</label>
         <div class="col-sm-4">
             <input asp-for="Source_Module" class="form-control form-control-sm" />
             <span asp-validation-for="Source_Module" class="text-danger"></span>
         </div>
     </div>
 
+    <!-- Status -->
     <div class="form-group row mb-3">
-        <label asp-for="IsActive" class="col-sm-2 col-form-label"></label>
+        <label asp-for="IsActive" class="col-sm-2 col-form-label">Status</label>
         <div class="col-sm-4 d-flex align-items-center">
             <input asp-for="IsActive" type="checkbox" class="form-check-input me-2" />
             <span>Active</span>
         </div>
     </div>
 
+    <!-- Buttons -->
     <div class="form-group row">
         <div class="col-sm-6 offset-sm-2">
             <button type="submit" class="btn btn-success">Save</button>

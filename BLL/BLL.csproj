@@ -189,10 +189,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountSubGroupBLL.cs" />
+    <Compile Include="ProjectBLL\AccountSubGroupBLL.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="ProjectBLL\LoginBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestBLL.cs" />
+    <Compile Include="ProjectBLL\TestBLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
