@@ -1,5 +1,7 @@
 ﻿using BLL;
+using BLL.ProjectBLL;
 using DAL;
+using DAL.ProjectDAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +16,11 @@ builder.Services.AddSingleton<ProjectStartUp.Connection.ConnectionString>();
 // DAO
 builder.Services.AddTransient<DAL.TestDAO>();
 builder.Services.AddTransient<AccountSubGroupDAO>();
+builder.Services.AddTransient<AccountGroupDAO>();
 // BLL
 builder.Services.AddTransient<BLL.TestBLL>();
 builder.Services.AddTransient<AccountSubGroupBLL>();
+builder.Services.AddTransient<AccountGroupBLL>();
 
 var app = builder.Build();
 

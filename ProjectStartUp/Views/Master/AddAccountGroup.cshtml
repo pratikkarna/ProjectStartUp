@@ -1,0 +1,56 @@
+﻿@model DTO.AccountGroupDTO
+
+@{
+    ViewBag.Title = Model.Ac_GrpCode == 0 ? "Add Account Group" : "Edit Account Group";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<form asp-controller="Master" asp-action="AddAccountGroup" method="post">
+    @if (Model.Ac_GrpCode != 0)
+    {
+        <input type="hidden" asp-for="Ac_GrpCode" />
+    }
+    <div class="form-group">
+        <label asp-for="Ac_Desc">Description</label>
+        <input asp-for="Ac_Desc" class="form-control" />
+        <span asp-validation-for="Ac_Desc" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Ac_Type"></label>
+        <select asp-for="Ac_Type" class="form-control">
+            <option value="B">Balance Sheet</option>
+            <option value="P">Profit & Loss</option>
+            <option value="T">Trading</option>
+        </select>
+        <span asp-validation-for="Ac_Type" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="BP_Type">BS/PL Type</label>
+        <select asp-for="BP_Type" class="form-control">
+            <option value="I">Income</option>
+            <option value="E">Expenditure</option>
+        </select>
+        <span asp-validation-for="BP_Type" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Ac_Schedul"></label>
+        <input asp-for="Ac_Schedul" class="form-control" />
+        <span asp-validation-for="Ac_Schedul" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="AccountGroupList" class="btn btn-secondary">Back to List</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
