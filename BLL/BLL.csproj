@@ -191,6 +191,7 @@
   <ItemGroup>
     <Compile Include="ProjectBLL\AccountSubGroupBLL.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="ProjectBLL\AreaBLL.cs" />
     <Compile Include="ProjectBLL\LoginBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProjectBLL\TestBLL.cs" />
