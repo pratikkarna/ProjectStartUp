@@ -9,19 +9,87 @@ namespace ProjectStartUp.Controllers
     {
 
         private readonly AccountSubGroupBLL _accountSubGroupBLL;
+        private readonly AccountGroupBLL _accountGroupBLL;
         private readonly AreaBLL _areaBll;
 
         // BLL injected via constructor
-        public MasterController(AccountSubGroupBLL accountSubGroupBLL,AreaBLL areaBLL )
+        public MasterController(AccountSubGroupBLL accountSubGroupBLL,AccountGroupBLL accountGroupBLL, AreaBLL areaBLL)
         {
             _accountSubGroupBLL = accountSubGroupBLL;
-            _areaBll= areaBLL;
+            _areaBll = areaBLL;
+            _accountGroupBLL = accountGroupBLL;
         }
+
+
 
         public IActionResult Index()
         {
             return View();
         }
+        #region Acocunt Group
+        public IActionResult AccountGroupList()
+        {
+            try
+            {
+                var list = _accountGroupBLL.GetAllAccountGroup();
+                return View(list);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                TempData["ErrorMessage"] = "An error occurred while fetching the list.";
+                return View(new List<AccountGroupDTO>());
+            }
+        }
+        public IActionResult AddAccountGroup(int id = 0)
+        {
+            AccountGroupDTO model;
+            try
+            {
+                if (id != 0)
+                {
+                    model = _accountGroupBLL.GetAccountGroupById(id) ?? new AccountGroupDTO();
+                }
+                else
+                {
+                    model = new AccountGroupDTO();
+                }
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                TempData["ErrorMessage"] = "An error occurred while fetching the details.";
+                return RedirectToAction("AccountGroupList");
+            }
+        }
+        [HttpPost]
+        public IActionResult AddAccountGroup(AccountGroupDTO model)
+        {
+            try
+            {
+                if (model.Ac_GrpCode != 0)
+                {
+                    // If you implement Update in BLL/DAO
+                    // _accountSubGroupBLL.Update(model);
+                }
+                else
+                {
+                    _accountGroupBLL.AddAccountGroup(model);
+                }
+
+                ModelState.Clear();
+                return RedirectToAction("AccountGroupList");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                TempData["ErrorMessage"] = "An error occurred while saving the data.";
+                return View(model);
+            }
+        }
+        #endregion
 
         #region AccountSubGroup
         public IActionResult AccountSubGroupList()
@@ -98,8 +166,8 @@ namespace ProjectStartUp.Controllers
         {
             try
             {
-                var tests = _areaBll.GetAllArea();
-                return View(tests);
+                var areas = _areaBll.GetAllArea();
+                return View(areas);
             }
             catch (Exception ex)
             {
@@ -108,54 +176,55 @@ namespace ProjectStartUp.Controllers
                 return View(new List<TestDTO>());
             }
         }
+        public IActionResult AddArea(int id = 0)
+        {
+            AreaDTO model;
+            try
+            {
+                if (id != 0)
+                {
+                    model = _areaBll.getAreaById(id) ?? new AreaDTO();
+                }
+                else
+                {
+                    model = new AreaDTO();
+                }
 
-        //public ActionResult Test(int id = 0)
-        //{
-        //    try
-        //    {
-        //        TestDTO model;
-        //        if (id != 0)
-        //        {
-        //            model = _testBLL.GetTestById(id) ?? new TestDTO();
-        //        }
-        //        else
-        //        {
-        //            model = new TestDTO();
-        //        }
-        //        return View(model);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        TempData["ErrorMessage"] = "An error occurred while fetching the test details.";
-        //        return RedirectToAction("TestList");
-        //    }
-        //}
-
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                TempData["ErrorMessage"] = "An error occurred while fetching the details.";
+                return RedirectToAction("AreaList");
+            }
+        }
         [HttpPost]
-        //public ActionResult Test(TestDTO model)
-        //{
-        //    try
-        //    {
-        //        if (model.ID != 0)
-        //        {
-        //            _testBLL.UpdateTest(model);
-        //        }
-        //        else
-        //        {
-        //            _testBLL.AddTest(model);
-        //            ModelState.Clear();
-        //            return RedirectToAction("Test", new { id = 0 });
-        //        }
-        //        return RedirectToAction("TestList");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        TempData["ErrorMessage"] = "An error occurred while saving the test.";
-        //        return View(model);
-        //    }
-        //}
+
+        public IActionResult AddArea(AreaDTO model)
+        {
+            try
+            {
+                if (model.Area_Code != 0)
+                {
+                    // If you implement Update in BLL/DAO
+                    // _accountSubGroupBLL.Update(model);
+                }
+                else
+                {
+                    _areaBll.AddArea(model);
+                }
+
+                ModelState.Clear();
+                return RedirectToAction("AreaList");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                TempData["ErrorMessage"] = "An error occurred while saving the data.";
+                return View(model);
+            }
+        }
 
         //public ActionResult DeleteTest(int id)
         //{
@@ -171,10 +240,10 @@ namespace ProjectStartUp.Controllers
         //    return RedirectToAction("TestList");
         //}
 
-       
-#endregion
-#region Ledger
-public IActionResult LedgerList()
+
+        #endregion
+        #region Ledger
+        public IActionResult LedgerList()
 {
     return View();
 }

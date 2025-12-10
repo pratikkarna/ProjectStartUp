@@ -2,7 +2,9 @@
 using ProjectStartUp.Connection;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,11 +35,9 @@ namespace DAL.ProjectDAL
                     {
                         Area.Add(new AreaDTO
                         {
-                            ID = reader.GetInt32(0),
-                            Area_Code = reader.GetString(1),
-                            Area_Desc = reader.GetString(2),
-                            Area_ShortName = reader.GetString(3),
-                            IsActive = reader.GetBoolean(4)
+                            Area_Code = Convert.ToInt32(reader.GetString(0)),
+                            Area_Desc = reader.IsDBNull(1) ? "" : reader.GetString(1),
+                            Area_ShortName = reader.IsDBNull(4) ? "" : reader.GetString(4),
                         });
                     }
                 }
@@ -46,23 +46,31 @@ namespace DAL.ProjectDAL
             return Area;
         }
 
-        public TestDTO GetById(int id)
+        public AreaDTO GetById(int id)
         {
             using (var conn = new SqlConnection(_connectionString))
-            using (var cmd = new SqlCommand("SELECT ID, Name, CreatedDate, IsActive FROM Tests WHERE ID = @ID", conn))
+            using (var cmd = new SqlCommand(@"select Area_Code,Area_Desc,MArea_Code,Source_Module,Area_ShortName,CountryCode,MobileNo1,
+                                              MobileNo2,Type FROM Area_Master 
+                                              WHERE Area_Code = @Area_Code", conn))
             {
-                cmd.Parameters.AddWithValue("@ID", id);
+                cmd.Parameters.AddWithValue("@Area_Code", id);
                 conn.Open();
                 using (var reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        return new TestDTO
+                        return new AreaDTO
                         {
-                            ID = reader.GetInt32(0),
-                            Name = reader.GetString(1),
-                            CreatedDate = reader.GetDateTime(2),
-                            IsActive = reader.GetBoolean(3)
+                            Area_Code = Convert.ToInt32(reader.GetString(0)),
+                            Area_Desc = reader.GetString(1),
+                            MArea_Code = reader.GetString(2),
+                            Source_Module = reader.GetString(3),
+                            Area_ShortName = reader.GetString(4),
+                            CountryCode = reader.GetString(5),
+                            MobileNo1 = reader.GetString(6),
+                            MobileNo2 = reader.GetString(7),
+                            Type = reader.GetString(8),
+                           
                         };
                     }
                 }
@@ -70,37 +78,30 @@ namespace DAL.ProjectDAL
             return null;
         }
 
-        public void Add(TestDTO test)
+        public void Save(AreaDTO model)
         {
-            using (var conn = new SqlConnection(_connectionString))
-            using (var cmd = new SqlCommand("INSERT INTO Test (Name, IsActive) VALUES (@Name, @IsActive)", conn))
-            {
-                cmd.Parameters.AddWithValue("@Name", test.Name);
-                cmd.Parameters.AddWithValue("@IsActive", test.IsActive);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
+            var now = DateTime.Now;
 
-        public void Update(TestDTO test)
-        {
             using (var conn = new SqlConnection(_connectionString))
-            using (var cmd = new SqlCommand("UPDATE Tests SET Name = @Name, IsActive = @IsActive WHERE ID = @ID", conn))
+            using (var cmd = new SqlCommand(@"
+          INSERT INTO area_master(Area_Code,Area_Desc,MArea_Code,Source_Module,Area_ShortName,CountryCode,MobileNo1,MobileNo2,Type)
+          VALUES((SELECT ISNULL(MAX(CAST(Area_Code AS INT)), 0) + 1 FROM area_master),@Area_Desc,@MArea_Code,@Source_Module,
+          @Area_ShortName,@CountryCode,@MobileNo1,@MobileNo2,@Type);
+        ", conn))
             {
-                cmd.Parameters.AddWithValue("@ID", test.ID);
-                cmd.Parameters.AddWithValue("@Name", test.Name);
-                cmd.Parameters.AddWithValue("@IsActive", test.IsActive);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
+                cmd.Parameters.Add("@Area_Desc", SqlDbType.VarChar, 100).Value = model.Area_Desc;
+                cmd.Parameters.Add("@MArea_Code", SqlDbType.VarChar, 20).Value = (object)model.MArea_Code ?? DBNull.Value;
+                // cmd.Parameters.Add("@Source_Module", SqlDbType.VarChar, 20).Value =string.IsNullOrWhiteSpace(model.Source_Module) ? DBNull.Valuemodel.Source_Module;
+               // cmd.Parameters.Add("@Source_Module", SqlDbType.VarChar, 20).Value =string.IsNullOrWhiteSpace(model.Source_Module)? DBNull.Value: model.Source_Module;
+                cmd.Parameters.Add("@Source_Module", SqlDbType.VarChar, 20).Value = DBNull.Value;
 
-        public void Delete(int id)
-        {
-            using (var conn = new SqlConnection(_connectionString))
-            using (var cmd = new SqlCommand("DELETE FROM Tests WHERE ID = @ID", conn))
-            {
-                cmd.Parameters.AddWithValue("@ID", id);
+                cmd.Parameters.Add("@Area_ShortName", SqlDbType.VarChar, 50).Value = (object)model.Area_ShortName ?? DBNull.Value;
+                cmd.Parameters.Add("@CountryCode", SqlDbType.VarChar, 5).Value = (object)model.CountryCode ?? DBNull.Value;
+                cmd.Parameters.Add("@MobileNo1", SqlDbType.VarChar, 15).Value = (object)model.MobileNo1 ?? DBNull.Value;
+                cmd.Parameters.Add("@MobileNo2", SqlDbType.VarChar, 15).Value = (object)model.MobileNo2 ?? DBNull.Value;
+                cmd.Parameters.Add("@Type", SqlDbType.VarChar, 10).Value = DBNull.Value;
+
+
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }

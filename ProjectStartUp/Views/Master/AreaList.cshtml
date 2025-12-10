@@ -12,7 +12,7 @@
     </div>
 }
 
-<a asp-action="Test" class="btn btn-success mb-3">Add New Area</a>
+<a asp-action="AddArea" class="btn btn-success mb-3">Add New Area</a>
 
 <table class="table table-bordered table-striped">
     <thead>
@@ -26,25 +26,16 @@
     <tbody>
         @if (Model != null && Model.Any())
         {
+            int i = 1;
             foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.ID</td>
+                    <td>@i</td>
                     <td>@item.Area_Desc</td>
                     <td>@item.Area_ShortName</td>
                     <td>
-                        @if (item.IsActive)
-                        {
-                            <span class="text-success">Yes</span>
-                        }
-                        else
-                        {
-                            <span class="text-danger">No</span>
-                        }
-                    </td>
-                    <td>
-                        <a asp-action="Test" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Edit</a>
-                        <a asp-action="DeleteTest" asp-route-id="@item.ID" class="btn btn-danger btn-sm"
+                        <a asp-action="Test" asp-route-id="@item.Area_Code" class="btn btn-primary btn-sm">Edit</a>
+                        <a asp-action="DeleteTest" asp-route-id="@item.Area_Code" class="btn btn-danger btn-sm"
                            onclick="return confirm('Are you sure you want to delete this test?');">Delete</a>
                     </td>
                 </tr>

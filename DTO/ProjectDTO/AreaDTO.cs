@@ -8,8 +8,7 @@ namespace DTO
 {
     public class AreaDTO
     {
-        public int ID { get; set; }
-        public string Area_Code { get; set; }
+        public int Area_Code { get; set; }
         public string Area_Desc { get; set; }
         public string MArea_Code { get; set; }
         public string Source_Module { get; set; }

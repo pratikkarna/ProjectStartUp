@@ -1,0 +1,46 @@
+﻿@model DTO.AreaDTO
+
+@{
+    ViewBag.Title = Model.Area_Code == 0 ? "Add Area" : "Edit Area";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+<form asp-controller="Master" asp-action="AddArea" method="post">
+    <div class="form-group mb-1">
+        <label asp-for="Area_Desc" class="form-label">Description</label>
+        <input asp-for="Area_Desc" class="form-control" />
+        <span asp-validation-for="Area_Desc" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="Area_ShortName" class="form-label">Short Name</label>
+        <input asp-for="Area_ShortName" class="form-control" />
+        <span asp-validation-for="Area_ShortName" class="text-danger"></span>
+    </div>
+    <label class="form-label fw-bold">Mobile No</label>
+    <div class="row mb-3">
+        <div class="col-3">
+            <input asp-for="CountryCode" class="form-control" placeholder="Country Code" />
+        </div>
+        <div class="col-4">
+            <input asp-for="MobileNo1" class="form-control" placeholder="Primary Mobile" />
+        </div>
+        <div class="col-4">
+            <input asp-for="MobileNo2" class="form-control" placeholder="Alternate Mobile" />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="AreaList" class="btn btn-secondary">Back to List</a>
+</form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

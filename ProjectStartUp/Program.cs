@@ -16,11 +16,14 @@ builder.Services.AddSingleton<ProjectStartUp.Connection.ConnectionString>();
 // DAO
 builder.Services.AddTransient<DAL.TestDAO>();
 builder.Services.AddTransient<AccountSubGroupDAO>();
+builder.Services.AddTransient<AccountGroupDAO>();
 builder.Services.AddTransient<AreaDAO>();
 // BLL
 builder.Services.AddTransient<BLL.TestBLL>();
 builder.Services.AddTransient<AccountSubGroupBLL>();
 builder.Services.AddTransient<AreaBLL>();
+builder.Services.AddTransient<AccountGroupBLL>();
+
 
 var app = builder.Build();
 

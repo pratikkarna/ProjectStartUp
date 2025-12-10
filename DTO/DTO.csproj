@@ -189,6 +189,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProjectDTO\AccountGroupDTO.cs" />
     <Compile Include="ProjectDTO\AccountSubGroupDTO.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ProjectDTO\AreaDTO.cs" />
