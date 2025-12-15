@@ -19,8 +19,8 @@ namespace DAL
         {
             var tests = new List<AccountSubGroupDTO>();
             using (var conn = new SqlConnection(_connectionString))
-            using (var cmd = new SqlCommand(@"SELECT SGrpCode,SGrpDesc,SGrpShortName,Source_Module,
-                                            Action_Date,Action_Time,Action_Miti,IsActive FROM Account_Sub_Group", conn))
+            using (var cmd = new SqlCommand(@"SELECT Ac_SGrpCode,Ac_SGrpDesc,Source_Module,
+Action_Date,Action_Time,Action_Miti FROM Account_Sub_Group", conn))
             {
                 conn.Open();
                 using (var reader = cmd.ExecuteReader())

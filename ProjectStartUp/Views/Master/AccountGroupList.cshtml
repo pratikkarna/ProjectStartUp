@@ -1,1 +1,58 @@
-﻿<h2> Account Group List</h2>
+﻿@model IEnumerable<DTO.AccountGroupDTO>
+
+@{
+    ViewBag.Title = "Account Group List";
+    Layout = "_MainLayout";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<a asp-action="AddAccountGroup" class="btn btn-success mb-3">Add New</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Sno</th>
+            <th>Group Name</th>
+            <th>Category</th>
+            <th>Type</th>
+            <th>Schedule</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            int i = 1;
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Ac_Desc</td>
+                    <td>@item.Ac_Type</td>
+                    <td>@item.BP_Type</td>
+                    <td>@item.Ac_Schedul</td>                
+                    <td>
+                        <a asp-action="AddAccountGroup" asp-route-id="@item.Ac_GrpCode" class="btn btn-primary btn-sm">Edit</a>
+                        <a asp-action="DeleteAccountGroup" asp-route-id="@item.Ac_GrpCode" class="btn btn-danger btn-sm"
+                           onclick="return confirm('Are you sure you want to delete this test?');">Delete</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="9" class="text-center">No account group found.</td>
+            </tr>
+        }
+    </tbody>
+</table>

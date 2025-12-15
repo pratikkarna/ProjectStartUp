@@ -19,6 +19,8 @@ namespace BLL.ProjectBLL
             _dao = dao;
         }
         public IEnumerable<AreaDTO> GetAllArea() => _dao.GetAll();
+        public AreaDTO getAreaById(int id) => _dao.GetById(id);
+        public void AddArea(AreaDTO model) => _dao.Save(model);
 
         //public AreaDTO GetTestById(int id) => _dao.GetById(id);
 

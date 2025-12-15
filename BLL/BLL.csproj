@@ -189,6 +189,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProjectBLL\AccountGroupBLL.cs" />
     <Compile Include="ProjectBLL\AccountSubGroupBLL.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ProjectBLL\AreaBLL.cs" />

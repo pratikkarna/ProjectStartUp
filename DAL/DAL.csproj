@@ -189,6 +189,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProjectDAL\AccountGroupDAO.cs" />
     <Compile Include="ProjectDAL\AccountSubGroupDAO.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ProjectDAL\AreaDAO.cs" />
